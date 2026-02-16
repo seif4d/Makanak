@@ -1,0 +1,705 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="مكانك للتسويق العقاري في أسيوط - بيع، شراء، إيجار شقق وعقارات.">
+    <title>مكانك | Makanak Estate</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- المتغيرات والألوان --- */
+        :root {
+            --primary: #0f172a;      /* كحلي غامق - الفخامة */
+            --gold: #d97706;         /* ذهبي - التميز */
+            --gold-light: #fbbf24;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.95);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --radius: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--primary);
+            overflow-x: hidden;
+            padding-bottom: 80px; /* مساحة للناف بار السفلي */
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* --- شاشة التحميل (Preloader) --- */
+        .loader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        .loader-content {
+            text-align: center;
+            color: var(--white);
+            animation: pulse 2s infinite;
+        }
+        .loader i { font-size: 3rem; color: var(--gold); margin-bottom: 10px; }
+        .loader h1 { font-size: 1.5rem; font-weight: 800; }
+
+        /* --- الهيدر (Header) --- */
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            padding: 15px 20px;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+            background: transparent;
+        }
+        
+        header.scrolled {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        header.scrolled .logo { color: var(--primary); }
+
+        .logo span { color: var(--gold); }
+
+        /* --- قسم الهيرو (Hero Section) --- */
+        .hero {
+            position: relative;
+            height: 85vh;
+            background: url('https://images.unsplash.com/photo-1600596542815-60c37c6525fa?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
+            display: flex;
+            align-items: flex-end; /* المحتوى في الأسفل للموبايل */
+            padding-bottom: 80px;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, #0f172a 10%, rgba(15, 23, 42, 0.4) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            color: var(--white);
+            z-index: 2;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.3);
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            line-height: 1.3;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 25px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s;
+        }
+        
+        .btn:active { transform: scale(0.95); }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold), #b45309);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(217, 119, 6, 0.4);
+        }
+
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        /* --- قسم البحث السريع (Search Box) --- */
+        .search-box {
+            margin: -40px 20px 40px;
+            background: var(--white);
+            padding: 20px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 5;
+        }
+
+        .search-tabs {
+            display: flex;
+            background: #f1f5f9;
+            padding: 5px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .search-tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .search-tab.active {
+            background: var(--white);
+            color: var(--gold);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .search-input {
+            display: flex;
+            align-items: center;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 12px 15px;
+            border-radius: 10px;
+            color: #64748b;
+        }
+        
+        .search-input i { margin-left: 10px; color: var(--gold); }
+        .search-input input {
+            border: none; background: transparent; width: 100%;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+        }
+
+        /* --- قسم العقارات (أفقي للموبايل) --- */
+        .section {
+            padding: 30px 0;
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .see-all {
+            color: var(--gold);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .properties-scroll {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding: 0 20px 20px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch; /* smooth scroll ios */
+        }
+        
+        .properties-scroll::-webkit-scrollbar { display: none; }
+
+        .property-card {
+            min-width: 280px;
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            scroll-snap-align: center;
+            position: relative;
+        }
+
+        .prop-img {
+            height: 180px;
+            position: relative;
+        }
+
+        .prop-img img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+
+        .prop-tag {
+            position: absolute;
+            top: 10px; right: 10px;
+            background: var(--gold);
+            color: var(--white);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .prop-details {
+            padding: 15px;
+        }
+
+        .prop-price {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .prop-title {
+            font-size: 1rem;
+            color: #475569;
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .prop-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 10px;
+        }
+        
+        .prop-meta span i { margin-left: 5px; color: var(--gold); }
+
+        /* --- قسم الخدمات (Grid) --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 0 20px;
+        }
+
+        .service-box {
+            background: var(--white);
+            padding: 20px;
+            border-radius: var(--radius);
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+
+        .service-icon {
+            width: 50px; height: 50px;
+            background: rgba(217, 119, 6, 0.1);
+            color: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 1.2rem;
+        }
+
+        .service-box h3 { font-size: 1rem; margin-bottom: 5px; }
+        .service-box p { font-size: 0.8rem; color: #64748b; }
+
+        /* --- بانر دعوة (CTA) --- */
+        .cta-banner {
+            margin: 30px 20px;
+            background: linear-gradient(135deg, var(--primary), #1e293b);
+            border-radius: var(--radius);
+            padding: 30px;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(217,119,6,0.2) 0%, transparent 70%);
+            animation: rotate 10s linear infinite;
+        }
+
+        .cta-content { position: relative; z-index: 1; }
+        .cta-banner h2 { font-size: 1.5rem; margin-bottom: 10px; }
+        .cta-banner p { margin-bottom: 20px; opacity: 0.8; font-size: 0.95rem; }
+
+        /* --- الناف بار السفلي (Bottom Navigation) للموبايل --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: var(--primary);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 12px 10px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 999;
+        }
+
+        .nav-item {
+            color: rgba(255,255,255,0.6);
+            text-align: center;
+            font-size: 0.75rem;
+            position: relative;
+            flex: 1;
+        }
+
+        .nav-item i {
+            display: block;
+            font-size: 1.3rem;
+            margin-bottom: 4px;
+            transition: 0.3s;
+        }
+
+        .nav-item.active { color: var(--gold); }
+        .nav-item.active i { transform: translateY(-3px); }
+
+        /* الزر العائم في المنتصف (WhatsApp) */
+        .nav-fab {
+            background: #25d366;
+            width: 60px; height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+            margin-top: -40px; /* يرتفع فوق البار */
+            border: 4px solid var(--bg-light);
+            animation: pulse-green 2s infinite;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 40px 20px 100px;
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        /* --- Animations --- */
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- Media Queries --- */
+        @media (min-width: 768px) {
+            .hero { height: 90vh; align-items: center; justify-content: flex-start; padding-left: 10%; }
+            .hero-content { text-align: right; max-width: 600px; padding: 0; }
+            .hero-actions { justify-content: flex-start; }
+            .bottom-nav { display: none; } /* إخفاء البار السفلي في الكمبيوتر */
+            .section-header, .properties-scroll, .search-box, .cta-banner { max-width: 1000px; margin-left: auto; margin-right: auto; }
+            .services-grid { grid-template-columns: repeat(4, 1fr); max-width: 1000px; margin: 0 auto; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- شاشة التحميل -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <i class="fa-solid fa-house-chimney"></i>
+            <h1>مكانك</h1>
+            <p>Estate</p>
+        </div>
+    </div>
+
+    <!-- الهيدر -->
+    <header id="header">
+        <div class="logo">
+            <i class="fa-solid fa-house-chimney"></i>
+            مكانك <span>Estate</span>
+        </div>
+        <!-- سيظهر زر القائمة فقط في الكمبيوتر، في الموبايل نعتمد على البار السفلي -->
+    </header>
+
+    <!-- قسم الهيرو -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <span class="badge">✨ الاختيار الأول في أسيوط</span>
+            <h1>اكتشف منزلك الجديد<br><span style="color: var(--gold);">بكل ثقة وأمان</span></h1>
+            <p>نحن نغير مفهوم الوساطة العقارية في أسيوط. وضوح تام، إجراءات قانونية، وخيارات تناسب ميزانيتك.</p>
+            <div class="hero-actions">
+                <a href="#properties" class="btn btn-primary">
+                    <i class="fa-solid fa-magnifying-glass"></i> تصفح العقارات
+                </a>
+                <a href="tel:01000000000" class="btn btn-glass">
+                    <i class="fa-solid fa-phone"></i> اتصل بنا
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- صندوق البحث -->
+    <div class="search-box reveal">
+        <div class="search-tabs">
+            <div class="search-tab active" onclick="switchTab(this, 'buy')">شراء</div>
+            <div class="search-tab" onclick="switchTab(this, 'rent')">إيجار</div>
+            <div class="search-tab" onclick="switchTab(this, 'student')">سكن طلاب</div>
+        </div>
+        <div class="search-input">
+            <i class="fa-solid fa-location-dot"></i>
+            <input type="text" placeholder="ابحث بالمنطقة (مثال: الزهراء، الجامعة..)">
+        </div>
+    </div>
+
+    <!-- قسم الخدمات -->
+    <section class="section reveal" id="services">
+        <div class="section-header">
+            <h2>خدماتنا</h2>
+        </div>
+        <div class="services-grid">
+            <div class="service-box">
+                <div class="service-icon"><i class="fa-solid fa-key"></i></div>
+                <h3>تأجير سكني</h3>
+                <p>عائلات وطلاب</p>
+            </div>
+            <div class="service-box">
+                <div class="service-icon"><i class="fa-solid fa-handshake"></i></div>
+                <h3>بيع وشراء</h3>
+                <p>أفضل الأسعار</p>
+            </div>
+            <div class="service-box">
+                <div class="service-icon"><i class="fa-solid fa-file-contract"></i></div>
+                <h3>توثيق عقود</h3>
+                <p>قانوني 100%</p>
+            </div>
+            <div class="service-box">
+                <div class="service-icon"><i class="fa-solid fa-chart-line"></i></div>
+                <h3>استثمار</h3>
+                <p>فرص مضمونة</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- عقارات مميزة (سلايدر) -->
+    <section class="section reveal" id="properties">
+        <div class="section-header">
+            <h2>عقارات مميزة 🔥</h2>
+            <a href="#" class="see-all">عرض الكل</a>
+        </div>
+        
+        <div class="properties-scroll">
+            <!-- كارت 1 -->
+            <div class="property-card">
+                <div class="prop-img">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="شقة">
+                    <span class="prop-tag">للإيجار</span>
+                </div>
+                <div class="prop-details">
+                    <div class="prop-price">3,500 ج.م <span style="font-size: 0.8rem; font-weight: 400; color: #64748b;">/ شهري</span></div>
+                    <div class="prop-title">شقة 120م تشطيب سوبر لوكس - حي الزهراء</div>
+                    <div class="prop-meta">
+                        <span><i class="fa-solid fa-bed"></i> 3 غرف</span>
+                        <span><i class="fa-solid fa-bath"></i> 1 حمام</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- كارت 2 -->
+            <div class="property-card">
+                <div class="prop-img">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="شقة">
+                    <span class="prop-tag" style="background: var(--primary);">للبيع</span>
+                </div>
+                <div class="prop-details">
+                    <div class="prop-price">1,250,000 ج.م</div>
+                    <div class="prop-title">شقة تمليك بجوار الجامعة - موقع استثماري</div>
+                    <div class="prop-meta">
+                        <span><i class="fa-solid fa-bed"></i> 2 غرف</span>
+                        <span><i class="fa-solid fa-ruler-combined"></i> 90م</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- كارت 3 -->
+            <div class="property-card">
+                <div class="prop-img">
+                    <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="شقة">
+                    <span class="prop-tag">سكن طلاب</span>
+                </div>
+                <div class="prop-details">
+                    <div class="prop-price">800 ج.م <span style="font-size: 0.8rem; font-weight: 400; color: #64748b;">/ سرير</span></div>
+                    <div class="prop-title">غرفة مزدوجة مكيفة - شارع الجمهورية</div>
+                    <div class="prop-meta">
+                        <span><i class="fa-solid fa-wifi"></i> نت</span>
+                        <span><i class="fa-solid fa-bolt"></i> شامل</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- بانر دعوة الملاك -->
+    <div class="cta-banner reveal">
+        <div class="cta-content">
+            <h2>عندك عقار وعايز تأجره؟ 🏠</h2>
+            <p>سجل عقارك معانا واحنا هنتكفل بكل حاجة من التسويق للتعاقد.</p>
+            <a href="https://wa.me/201000000000" class="btn btn-primary" style="display: inline-flex; background: white; color: var(--primary);">
+                تواصل مع المبيعات
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="logo" style="color: var(--primary); justify-content: center; margin-bottom: 10px;">
+            <i class="fa-solid fa-house-chimney"></i>
+            مكانك <span>Estate</span>
+        </div>
+        <p style="font-size: 0.9rem; color: #64748b;">جميع الحقوق محفوظة &copy; 2024</p>
+    </footer>
+
+    <!-- Bottom Navigation Bar (Mobile Only) -->
+    <div class="bottom-nav">
+        <a href="#home" class="nav-item active">
+            <i class="fa-solid fa-house"></i>
+            الرئيسية
+        </a>
+        <a href="#properties" class="nav-item">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            عقارات
+        </a>
+        
+        <!-- زر الواتساب العائم في المنتصف -->
+        <a href="https://wa.me/201000000000" target="_blank" class="nav-fab">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+        
+        <a href="#services" class="nav-item">
+            <i class="fa-solid fa-briefcase"></i>
+            خدماتنا
+        </a>
+        <a href="tel:01000000000" class="nav-item">
+            <i class="fa-solid fa-phone"></i>
+            اتصال
+        </a>
+    </div>
+
+    <script>
+        // إخفاء شاشة التحميل عند اكتمال الصفحة
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 500);
+        });
+
+        // تغيير خلفية الهيدر عند السكرول
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // تفعيل تبويبات البحث
+        function switchTab(element, type) {
+            document.querySelectorAll('.search-tab').forEach(tab => tab.classList.remove('active'));
+            element.classList.add('active');
+            // هنا ممكن تضيف كود يغير الـ Placeholder بناءً على النوع
+        }
+
+        // تأثير الظهور عند السكرول
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // تغيير الايقونة النشطة في البار السفلي
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                if(!this.classList.contains('nav-fab')) { // استثناء زر الواتساب
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
