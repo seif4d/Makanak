@@ -1,0 +1,674 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="مكانك للتسويق العقاري في أسيوط - شريكك العقاري الأول للبيع والشراء والإيجار.">
+    <title>مكانك للتسويق العقاري | Makanak Estate</title>
+    
+    <!-- استدعاء خط "تجوال" ليعطي طابع عصري عربي -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- أيقونات FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- متغيرات الألوان والهوية البصرية --- */
+        :root {
+            --primary-color: #0f172a; /* كحلي غامق - يعطي فخامة */
+            --secondary-color: #d97706; /* ذهبي/كهرماني - للتميز */
+            --accent-color: #f8fafc; /* أبيض مائل للرمادي للخلفيات */
+            --text-color: #334155; /* رمادي غامق للنصوص */
+            --white: #ffffff;
+            --transition: all 0.3s ease;
+        }
+
+        /* --- إعدادات عامة --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: #b45309;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--white);
+            color: var(--white);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--white);
+            color: var(--primary-color);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: #64748b;
+            font-size: 1.1rem;
+            margin-top: 15px;
+        }
+
+        /* --- الناف بار (Header) --- */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+            transition: var(--transition);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            right: 0;
+            background-color: var(--secondary-color);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+
+        /* --- قسم الهيرو (Hero Section) --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.7)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            margin-top: 0;
+            padding-top: 60px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 20px;
+            animation: fadeIn Up 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        /* --- قسم الخدمات (Services) --- */
+        .services {
+            padding: 80px 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            border-bottom: 3px solid transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-bottom-color: var(--secondary-color);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        /* --- قسم الإحصائيات (Stats) --- */
+        .stats {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 60px 0;
+        }
+
+        .stats-grid {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        /* --- قسم لماذا نحن (Features) --- */
+        .features {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+
+        .features-container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .features-img {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .features-img img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: -20px 20px 0 var(--secondary-color);
+        }
+
+        .features-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .features-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+
+        .features-list i {
+            color: var(--secondary-color);
+        }
+
+        /* --- الفوتر (Footer) --- */
+        footer {
+            background-color: #020617;
+            color: #94a3b8;
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: var(--white);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-col p {
+            margin-bottom: 15px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--secondary-color);
+            color: var(--white);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+        }
+
+        /* --- زر الواتساب العائم --- */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background-color: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* --- التجاوب (Media Queries) --- */
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                right: -100%;
+                width: 100%;
+                background-color: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 10px rgba(0,0,0,0.05);
+                transition: var(--transition);
+                text-align: center;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .features-container {
+                flex-direction: column-reverse;
+            }
+            
+            .btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            .hero-btns {
+                flex-direction: column;
+            }
+        }
+        
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fa-solid fa-house-chimney"></i>
+                    مكانك <span>Estate</span>
+                </div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#hero">الرئيسية</a></li>
+                    <li><a href="#about">عن المكتب</a></li>
+                    <li><a href="#services">خدماتنا</a></li>
+                    <li><a href="#contact">تواصل معنا</a></li>
+                </ul>
+                <div class="nav-cta">
+                    <a href="#contact" class="btn btn-primary" style="padding: 8px 20px; font-size: 0.9rem;">اتصل الآن</a>
+                    <div class="mobile-toggle" id="mobileToggle">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="container hero-content">
+            <h1>مكانك.. حيث يبدأ الاستقرار</h1>
+            <p>شريكك العقاري الأول في أسيوط. نساعدك في بيع، شراء، وتأجير العقارات بأعلى معايير الثقة والأمان.</p>
+            <div class="hero-btns">
+                <a href="#contact" class="btn btn-primary">ابحث عن عقارك</a>
+                <a href="#services" class="btn btn-outline">خدماتنا</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container stats-grid">
+            <div class="stat-item reveal">
+                <h3>+500</h3>
+                <p>عميل سعيد</p>
+            </div>
+            <div class="stat-item reveal">
+                <h3>+120</h3>
+                <p>عقار مُباع</p>
+            </div>
+            <div class="stat-item reveal">
+                <h3>+5</h3>
+                <p>سنوات خبرة</p>
+            </div>
+            <div class="stat-item reveal">
+                <h3>100%</h3>
+                <p>شفافية</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>خدماتنا المميزة</h2>
+                <p>نقدم حلولاً عقارية متكاملة تناسب جميع احتياجاتك في أسيوط</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                    <h3>البيع والشراء</h3>
+                    <p>نضمن لك أفضل سعر سواء كنت بائعًا أو مشتريًا، مع إجراءات قانونية سليمة 100%.</p>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fa-solid fa-key"></i></div>
+                    <h3>الإيجار السكني</h3>
+                    <p>نوفر لك خيارات إيجار متنوعة تناسب ميزانيتك، سواء للطلاب أو العائلات.</p>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fa-solid fa-file-contract"></i></div>
+                    <h3>الاستشارات العقارية</h3>
+                    <p>فريقنا جاهز لتقديم النصيحة الاستثمارية الصحيحة قبل اتخاذ أي قرار.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features / About Section -->
+    <section class="features" id="about">
+        <div class="container features-container">
+            <div class="features-img reveal">
+                <!-- صورة معبرة عن العقارات أو مكتب -->
+                <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="مكتب مكانك العقاري">
+            </div>
+            <div class="features-text reveal">
+                <div class="section-title" style="text-align: right; margin-bottom: 20px;">
+                    <h2>لماذا تختار "مكانك"؟</h2>
+                </div>
+                <p style="margin-bottom: 20px; color: #475569;">
+                    في سوق أسيوط المليء بالخيارات، نحن لا نبيع العقارات فقط، بل نبني علاقات قائمة على الثقة. نحن نفهم احتياجاتك ونقدر وقتك.
+                </p>
+                <ul class="features-list">
+                    <li><i class="fa-solid fa-circle-check"></i> قاعدة بيانات واسعة للعقارات في أسيوط</li>
+                    <li><i class="fa-solid fa-circle-check"></i> شفافية تامة في الأسعار والعمولات</li>
+                    <li><i class="fa-solid fa-circle-check"></i> فريق دعم ومتابعة محترف</li>
+                    <li><i class="fa-solid fa-circle-check"></i> تخليص الإجراءات القانونية</li>
+                </ul>
+                <a href="#contact" class="btn btn-primary" style="margin-top: 20px;">تواصل معنا الآن</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo" style="margin-bottom: 15px; color: white;">
+                        <i class="fa-solid fa-house-chimney"></i>
+                        مكانك <span>Estate</span>
+                    </div>
+                    <p>شريكك العقاري الموثوق في أسيوط. نسعى دائمًا لتقديم أفضل الفرص السكنية والاستثمارية.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>روابط سريعة</h4>
+                    <ul style="line-height: 2;">
+                        <li><a href="#hero">الرئيسية</a></li>
+                        <li><a href="#services">الخدمات</a></li>
+                        <li><a href="#about">من نحن</a></li>
+                        <li><a href="#">سياسة الخصوصية</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>تواصل معنا</h4>
+                    <p><i class="fa-solid fa-location-dot" style="margin-left: 10px; color: var(--secondary-color);"></i> أسيوط، مصر</p>
+                    <p><i class="fa-solid fa-phone" style="margin-left: 10px; color: var(--secondary-color);"></i> 01000000000</p>
+                    <p><i class="fa-solid fa-envelope" style="margin-left: 10px; color: var(--secondary-color);"></i> info@makanak.com</p>
+                    <div class="social-links" style="margin-top: 20px;">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>جميع الحقوق محفوظة &copy; 2024 مكانك للتسويق العقاري</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Whatsapp Float Button -->
+    <a href="https://wa.me/201000000000" class="whatsapp-float" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script>
+        // Toggle Mobile Menu
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            // Change Icon
+            const icon = mobileToggle.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileToggle.querySelector('i').classList.remove('fa-xmark');
+                mobileToggle.querySelector('i').classList.add('fa-bars');
+            });
+        });
+
+        // Scroll Reveal Animation
+        window.addEventListener('scroll', reveal);
+
+        function reveal() {
+            var reveals = document.querySelectorAll('.reveal');
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var revealTop = reveals[i].getBoundingClientRect().top;
+                var revealPoint = 100;
+
+                if (revealTop < windowHeight - revealPoint) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        
+        // Trigger once on load
+        reveal();
+    </script>
+</body>
+</html>
