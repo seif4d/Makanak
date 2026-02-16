@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>مكانك | Makanak Estate</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- Dark Mode Variables --- */
+        :root {
+            --bg-body: #050505;       /* أسود عميق */
+            --bg-card: #121212;       /* رمادي داكن جداً للكروت */
+            --bg-glass: rgba(18, 18, 18, 0.85);
+            --primary: #fbbf24;       /* ذهبي فاتح */
+            --primary-dark: #d97706;  /* ذهبي غامق */
+            --text-main: #f1f5f9;     /* أبيض مائل للرمادي */
+            --text-muted: #94a3b8;    /* رمادي للنصوص الثانوية */
+            --accent: #22c55e;        /* أخضر للواتساب */
+            --radius: 20px;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            --border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            overflow-x: hidden;
+            padding-bottom: 90px; /* مساحة للناف بار */
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+        img { width: 100%; display: block; }
+
+        /* --- Header --- */
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            padding: 15px 20px;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(5,5,5,0.9), transparent);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-main);
+        }
+        .logo span { color: var(--primary); }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 70vh;
+            position: relative;
+            background: url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=1600&auto=format&fit=crop') center/cover;
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, var(--bg-body) 10%, rgba(5,5,5,0.6) 50%, rgba(5,5,5,0.3));
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            text-align: center;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            line-height: 1.3;
+            margin-bottom: 10px;
+        }
+        
+        .hero p { color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem; }
+
+        /* --- Category Buttons (Special Pages Triggers) --- */
+        .categories-container {
+            padding: 0 20px;
+            margin-top: -40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .cat-btn {
+            background: var(--bg-card);
+            border: var(--border);
+            border-radius: 15px;
+            padding: 15px 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.3s;
+            box-shadow: var(--shadow);
+        }
+
+        .cat-btn:active { transform: scale(0.95); }
+        .cat-btn.active-cat { border-color: var(--primary); background: rgba(251, 191, 36, 0.1); }
+
+        .cat-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+            filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.4));
+        }
+
+        .cat-title { font-size: 0.9rem; font-weight: 700; }
+
+        /* --- Sections Common Style --- */
+        section { padding: 40px 0; }
+        
+        .section-header {
+            padding: 0 20px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        
+        .section-header h2 { font-size: 1.4rem; color: var(--text-main); border-right: 3px solid var(--primary); padding-right: 10px; }
+        .see-all { color: var(--primary); font-size: 0.85rem; font-weight: 600; }
+
+        /* --- Properties Slider --- */
+        .prop-scroll {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding: 0 20px 20px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .prop-scroll::-webkit-scrollbar { display: none; }
+
+        .prop-card {
+            min-width: 260px;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: var(--border);
+            scroll-snap-align: center;
+            position: relative;
+        }
+
+        .prop-img { height: 160px; position: relative; }
+        .prop-img img { height: 100%; object-fit: cover; }
+        
+        .badge {
+            position: absolute; top: 10px; right: 10px;
+            background: rgba(0,0,0,0.7); color: var(--primary);
+            padding: 4px 10px; border-radius: 8px; font-size: 0.75rem;
+            backdrop-filter: blur(4px); font-weight: bold;
+        }
+
+        .prop-info { padding: 15px; }
+        .price { font-size: 1.1rem; font-weight: 800; color: var(--text-main); margin-bottom: 5px; }
+        .location { color: var(--text-muted); font-size: 0.85rem; display: flex; align-items: center; gap: 5px; }
+        
+        /* --- Services Grid --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 0 20px;
+        }
+        
+        .serv-box {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: var(--radius);
+            text-align: center;
+            border: var(--border);
+        }
+        .serv-box i { font-size: 1.8rem; color: var(--primary-dark); margin-bottom: 10px; }
+        .serv-box h3 { font-size: 1rem; margin-bottom: 5px; }
+        .serv-box p { font-size: 0.8rem; color: var(--text-muted); }
+
+        /* --- Bottom Nav (Glassmorphism) --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 20px; left: 20px; right: 20px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(15px);
+            border: var(--border);
+            border-radius: 25px;
+            height: 65px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 999;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .nav-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            gap: 4px;
+            position: relative;
+            width: 50px;
+        }
+
+        .nav-link i { font-size: 1.2rem; transition: 0.3s; }
+        
+        .nav-link.active { color: var(--primary); }
+        .nav-link.active i { transform: translateY(-5px); text-shadow: 0 0 10px rgba(251, 191, 36, 0.6); }
+        .nav-link.active::after {
+            content: ''; position: absolute; bottom: -8px; width: 5px; height: 5px;
+            background: var(--primary); border-radius: 50%;
+        }
+
+        /* --- WhatsApp FAB --- */
+        .fab-whatsapp {
+            background: var(--accent);
+            width: 55px; height: 55px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; color: white;
+            margin-top: -35px;
+            border: 5px solid var(--bg-body);
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        /* --- Full Screen Pages (Modals) --- */
+        .full-page {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-body);
+            z-index: 2000;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow-y: auto;
+            padding-bottom: 40px;
+        }
+
+        .full-page.open { transform: translateY(0); }
+
+        .page-header {
+            position: sticky; top: 0;
+            padding: 20px;
+            background: var(--bg-card);
+            display: flex; align-items: center; gap: 15px;
+            border-bottom: var(--border);
+            z-index: 10;
+        }
+
+        .back-btn {
+            font-size: 1.2rem; cursor: pointer;
+            padding: 8px; border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .page-content { padding: 20px; }
+        
+        /* --- Animations --- */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); } 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); } }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-layer-group"></i>
+            مكانك <span>Estate</span>
+        </div>
+        <div style="font-size: 1.2rem; color: var(--text-main);"><i class="fa-regular fa-bell"></i></div>
+    </header>
+
+    <!-- Main Content Wrapped for ScrollSpy -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <div style="color: var(--primary); font-size: 0.9rem; margin-bottom: 5px; font-weight: bold; letter-spacing: 1px;">أسيوط</div>
+                <h1>استثمر في مستقبلك<br>بأمان وفخامة</h1>
+                <p>الوجهة العقارية الأولى. وضوح، ثقة، واختيارات تناسب طموحك.</p>
+            </div>
+        </section>
+
+        <!-- Categories (Special Pages Triggers) -->
+        <div class="categories-container">
+            <div class="cat-grid">
+                <div class="cat-btn" onclick="openPage('buyPage')">
+                    <div class="cat-icon"><i class="fa-solid fa-house-circle-check"></i></div>
+                    <div class="cat-title">شراء</div>
+                </div>
+                <div class="cat-btn" onclick="openPage('rentPage')">
+                    <div class="cat-icon"><i class="fa-solid fa-key"></i></div>
+                    <div class="cat-title">إيجار</div>
+                </div>
+                <div class="cat-btn" onclick="openPage('studentPage')">
+                    <div class="cat-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <div class="cat-title">سكن طلاب</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Properties -->
+        <section id="properties">
+            <div class="section-header">
+                <h2>أحدث الفرص</h2>
+                <a href="#" class="see-all">عرض الكل</a>
+            </div>
+            <div class="prop-scroll">
+                <!-- Property 1 -->
+                <div class="prop-card">
+                    <div class="prop-img">
+                        <img src="https://images.unsplash.com/photo-1600596542815-60c37c6525fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="شقة">
+                        <span class="badge">بيع</span>
+                    </div>
+                    <div class="prop-info">
+                        <div class="price">1,850,000 ج.م</div>
+                        <div class="location"><i class="fa-solid fa-location-dot"></i> الفريزية، برج الأطباء</div>
+                    </div>
+                </div>
+                <!-- Property 2 -->
+                <div class="prop-card">
+                    <div class="prop-img">
+                        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="شقة">
+                        <span class="badge" style="color: #fff;">إيجار</span>
+                    </div>
+                    <div class="prop-info">
+                        <div class="price">4,500 ج.م <span style="font-size: 0.7rem; color: var(--text-muted);">/ شهري</span></div>
+                        <div class="location"><i class="fa-solid fa-location-dot"></i> حي الزهراء، الرئيسي</div>
+                    </div>
+                </div>
+                <!-- Property 3 -->
+                <div class="prop-card">
+                    <div class="prop-img">
+                        <img src="https://images.unsplash.com/photo-1555854785-985c9e3a1e63?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="شقة">
+                        <span class="badge">طلاب</span>
+                    </div>
+                    <div class="prop-info">
+                        <div class="price">900 ج.م <span style="font-size: 0.7rem; color: var(--text-muted);">/ سرير</span></div>
+                        <div class="location"><i class="fa-solid fa-location-dot"></i> شارع المكتبات</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section id="services">
+            <div class="section-header">
+                <h2>خدماتنا</h2>
+            </div>
+            <div class="services-grid">
+                <div class="serv-box">
+                    <i class="fa-solid fa-file-signature"></i>
+                    <h3>توثيق عقود</h3>
+                    <p>ضمان قانوني شامل</p>
+                </div>
+                <div class="serv-box">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <h3>استشارات</h3>
+                    <p>تحليل السوق بدقة</p>
+                </div>
+                <div class="serv-box">
+                    <i class="fa-solid fa-camera"></i>
+                    <h3>تصوير عقاري</h3>
+                    <p>عرض احترافي لوحدتك</p>
+                </div>
+                <div class="serv-box">
+                    <i class="fa-solid fa-headset"></i>
+                    <h3>إدارة أملاك</h3>
+                    <p>راحة بال للمالك</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Placeholder for ScrollSpy -->
+        <section id="contact" style="height: 100px;"></section>
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+        <a href="#home" class="nav-link active">
+            <i class="fa-solid fa-house"></i>
+            <span>الرئيسية</span>
+        </a>
+        <a href="#properties" class="nav-link">
+            <i class="fa-solid fa-building"></i>
+            <span>عقارات</span>
+        </a>
+        
+        <a href="https://wa.me/201000000000" class="fab-whatsapp">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+        
+        <a href="#services" class="nav-link">
+            <i class="fa-solid fa-briefcase"></i>
+            <span>خدمات</span>
+        </a>
+        <a href="#contact" class="nav-link" onclick="window.location.href='tel:01000000000'">
+            <i class="fa-solid fa-phone"></i>
+            <span>اتصال</span>
+        </a>
+    </nav>
+
+    <!-- === Full Screen "Pages" (Modals) === -->
+
+    <!-- 1. صفحة الشراء -->
+    <div id="buyPage" class="full-page">
+        <div class="page-header">
+            <div class="back-btn" onclick="closePage('buyPage')"><i class="fa-solid fa-arrow-right"></i></div>
+            <h3>وحدات للبيع</h3>
+        </div>
+        <div class="page-content">
+            <p style="color: var(--text-muted); margin-bottom: 20px;">عرض كل الوحدات المتاحة للبيع في أسيوط</p>
+            <!-- محتوى وهمي -->
+            <div class="prop-card" style="margin-bottom: 20px;">
+                <div class="prop-img"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=500" alt=""><span class="badge">للبيع</span></div>
+                <div class="prop-info"><div class="price">2,100,000 ج.م</div><div class="location">حي الحقوقيين</div></div>
+            </div>
+             <div class="prop-card" style="margin-bottom: 20px;">
+                <div class="prop-img"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=500" alt=""><span class="badge">فرصة</span></div>
+                <div class="prop-info"><div class="price">1,500,000 ج.م</div><div class="location">الأربعين</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. صفحة الإيجار -->
+    <div id="rentPage" class="full-page">
+        <div class="page-header">
+            <div class="back-btn" onclick="closePage('rentPage')"><i class="fa-solid fa-arrow-right"></i></div>
+            <h3>وحدات للإيجار</h3>
+        </div>
+        <div class="page-content">
+            <div class="prop-card" style="margin-bottom: 20px;">
+                <div class="prop-img"><img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=500" alt=""><span class="badge" style="color:#fff;">جديد</span></div>
+                <div class="prop-info"><div class="price">5,000 ج.م</div><div class="location">الجمهورية، تشطيب فندقي</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. صفحة الطلاب -->
+    <div id="studentPage" class="full-page">
+        <div class="page-header">
+            <div class="back-btn" onclick="closePage('studentPage')"><i class="fa-solid fa-arrow-right"></i></div>
+            <h3>سكن طلاب متميز</h3>
+        </div>
+        <div class="page-content">
+            <p style="color: var(--text-muted);">سكن قريب من الجامعة بأسعار مناسبة</p>
+            <div class="prop-card" style="margin-bottom: 20px;">
+                <div class="prop-img"><img src="https://images.unsplash.com/photo-1555854785-985c9e3a1e63?q=80&w=500" alt=""><span class="badge">مكيف</span></div>
+                <div class="prop-info"><div class="price">1,200 ج.م / سرير</div><div class="location">شارع المكتبات - غرفة مزدوجة</div></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. Scroll Spy Logic (تغيير الشريط السفلي حسب السكرول) ---
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                // تعديل بسيط لحساب المسافة بسبب الهيدر
+                if (pageYOffset >= (sectionTop - 250)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // --- 2. Page Navigation (فتح الصفحات المنبثقة) ---
+        function openPage(pageId) {
+            document.getElementById(pageId).classList.add('open');
+            document.body.style.overflow = 'hidden'; // منع السكرول في الخلفية
+        }
+
+        function closePage(pageId) {
+            document.getElementById(pageId).classList.remove('open');
+            document.body.style.overflow = 'auto'; // إعادة السكرول
+        }
+    </script>
+</body>
+</html>
